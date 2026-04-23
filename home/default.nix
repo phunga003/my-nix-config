@@ -7,13 +7,18 @@ in
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "24.11";  
 
-  programs.bash.enable = true;
-
   home.packages = with pkgs; [
     git
     clang-tools   
     jetbrains-mono
   ];
+
+  programs.bash = {
+    enable = true;
+    sessionVariables = {
+      COLORTERM = "truecolor";
+    };
+  }
 
   programs.starship = {
     enable = true;
