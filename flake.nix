@@ -8,13 +8,22 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";  
     };                                      
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
-    homeConfigurations."nixos" =
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [ ./home/default.nix ];
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }: {
+    nixosConfigurations.wsl =
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          nixos-wsl.nixosModules.default
+          ./hosts/wsl/default.nix
+        ];
       };
   };
 }
