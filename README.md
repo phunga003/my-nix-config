@@ -61,46 +61,24 @@ Nix reads from the git-tracked state. Unstaged files are invisible to the build.
 ## Project Structure
 
 ```
-flake.nix           Entry point. Declares all inputs (nixpkgs, home-manager,
-                    nixos-wsl) and all nixosConfigurations outputs.
+flake.nix       Entry point. Declares all inputs and all machine outputs.
+flake.lock      Pins every input to an exact commit. Always commit this.
 
-flake.lock          Pins every input to an exact commit. Always commit this.
-                    Guarantees identical builds across machines and time.
+modules/        Custom option declarations shared across the entire system.
+                Defines the schema that hosts and profiles build against.
 
-modules/
-  options.nix       Custom option declarations shared across the system.
-                    Currently declares myconfig.username.
+hosts/          Machine identities. Each subdirectory is one machine.
+                A host declares which profiles it imports and which
+                capability flags are enabled. Nothing else lives here.
 
-hosts/
-  wsl/              WSL-specific machine identity. Declares which profiles
-                    this machine imports and which capabilities are enabled.
-                    Sets system.stateVersion and WSL options.
+profiles/       Reusable capabilities. A profile is a self-contained unit
+                of functionality — a language toolchain, a network role,
+                a security posture. Hosts compose profiles to define
+                what a machine can do.
 
-profiles/
-  dev/
-    lang/
-      c.nix         C runtime (gcc, clang-tools) and tooling (clangd LSP).
-                    Flags: profiles.dev.c.runtime, profiles.dev.c.tooling
-      haskell.nix   Haskell runtime (ghc, cabal) and tooling (HLS, ormolu).
-                    Flags: profiles.dev.haskell.runtime, profiles.dev.haskell.tooling
-      nix.nix       Nix tooling only (nixd LSP, nixfmt). No runtime flag —
-                    Nix is always present on NixOS.
-                    Flag: profiles.dev.nixTools.tooling
-      cpp.nix       C++ runtime and tooling.
-    git.nix         Git installation (runtime only). Identity lives in home/.
-    ssh.nix         SSH client config and agent startup.
-  entertainment/
-    music.nix       spotify-player. Import only on hosts with audio support.
-  sec/              Security capability profiles (in progress).
-  net/              Network capability profiles (in progress).
-
-home/
-  default.nix       Personal environment applied to all machines.
-                    Helix (editor, LSP base config, theme), Zellij, Starship,
-                    Bash, fonts, git identity, core packages.
-  base.nix          Reserved for base home config extraction.
-  ide.nix           Reserved for IDE-specific config.
-  term.nix          Reserved for terminal-specific config.
+home/           Personal user environment applied to every machine.
+                Editor, shell, terminal multiplexer, fonts, git identity.
+                Not machine-specific — follows the user everywhere.
 ```
 
 ---
