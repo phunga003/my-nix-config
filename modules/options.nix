@@ -1,4 +1,4 @@
-{lib, ...}:
+{ lib, ... }:
 {
   options.myconfig.username = lib.mkOption {
     type = lib.types.str;

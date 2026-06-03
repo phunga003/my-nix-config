@@ -10,11 +10,15 @@ in
   config = lib.mkMerge [
     (lib.mkIf config.profiles.dev.nixTools.tooling {
       home-manager.users.${username} = {
-        home.packages = with pkgs; [ nixd ];
+        home.packages = with pkgs; [ nixd nixfmt-rfc-style ];
         programs.helix.languages = {
           language = [{
             name = "nix";
             language-servers = [ "nixd" ];
+            formatter = {
+              command = "nixfmt";
+            };
+            auto-format = true;
           }];
         };
       };

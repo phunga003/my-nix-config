@@ -48,6 +48,11 @@
             cursor-line = "warning";
             other-lines = "error";
           };
+          indent-guides = {
+            render = true;
+            character = "│";
+            skip-levels = 1;
+          };
         };
       };
     };
