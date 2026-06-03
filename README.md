@@ -5,6 +5,38 @@ Designed for composable, reproducible environments across machines and VM fleets
 
 ---
 
+## Fresh Install
+
+On a fresh NixOS machine before the config is applied.
+
+**1. Install git and openssh**
+```bash
+nix-env -iA nixpkgs.git nixpkgs.openssh
+```
+
+**2. Enable flakes**
+```bash
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+```
+
+**3. Generate an SSH key and add it to GitHub**
+```bash
+ssh-keygen -t ed25519 -C "your@email.com"
+cat ~/.ssh/id_ed25519.pub
+```
+Copy the output and add it to GitHub → Settings → SSH Keys.
+
+**4. Clone and apply**
+```bash
+git clone git@github.com:phunga003/my-nix-config.git ~/my-nix-config
+cd ~/my-nix-config
+git add .
+sudo nixos-rebuild switch --flake .#wsl
+```
+
+Open a fresh terminal when done.
+
 ## Applying the Configuration
 
 ```bash
