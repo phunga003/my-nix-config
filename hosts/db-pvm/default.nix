@@ -1,8 +1,8 @@
 { config, ... }:
 {
   imports = [
-    ../../profiles/platform/proxmox-vm.nix
-    ../../profiles/services/postgres.nix
+    profiles/platform/proxmox-vm.nix
+    profiles/services/postgres.nix
   ];
 
   myconfig.services.postgres = {
