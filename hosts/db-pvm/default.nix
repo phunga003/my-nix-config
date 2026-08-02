@@ -1,9 +1,10 @@
 { config, ... }:
 {
   imports = [
-    ../../profiles/platform/proxmox-vm.nix
+    ../../profiles/platform/proxmox.nix
     ../../profiles/services/postgres.nix
     ../../modules/options.nix
+    ../../modules/init-user.nix
     ../../profiles/dev/git.nix
     ../../profiles/dev/ssh.nix
     ../../profiles/dev/lang/nix.nix
@@ -19,16 +20,5 @@
   };
 
   profiles.dev.nixTools.tooling = true;
-
-  home-manager = {
-    users.${config.myconfig.username} = {
-      imports = [ (import ../../home/default.nix) ];
-      targets.genericLinux.enable = true;
-      home.username = config.myconfig.username;
-      home.homeDirectory = "/home/${config.myconfig.username}";
-    };
-    useGlobalPkgs = true;
-    useUserPackages = true;
-  };
 
 }

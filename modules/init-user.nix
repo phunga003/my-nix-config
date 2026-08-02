@@ -12,8 +12,8 @@
 
   home-manager = {
     users.${config.myconfig.username} = {
-      # imports = [ ../home/default.nix ];
-      imports = [ (import ../home/default.nix) ];
+      imports = [ ../home/default.nix ];
+      #imports = [ (import ../home/default.nix) ];
       targets.genericLinux.enable = config.myconfig.enableGenericLinux;
       home.username = config.myconfig.username;
       home.homeDirectory = "/home/${config.myconfig.username}";
