@@ -1,6 +1,7 @@
 { config, ... }:
 {
   imports = [
+    ../../modules/init-user.nix
     ../../modules/options.nix
     ../../profiles/dev/git.nix
     ../../profiles/dev/ssh.nix
@@ -11,7 +12,6 @@
   ];
 
   myconfig.username = "nixos";
-  system.stateVersion = "24.11";
 
   # ---- profiles ----
   profiles.dev.c = {
@@ -32,16 +32,16 @@
 
   profiles.dev.nixTools.tooling = true;
 
-  home-manager = {
-    users.${config.myconfig.username} = {
-      imports = [ (import ../../home/default.nix) ];
-      targets.genericLinux.enable = true;
-      home.username = config.myconfig.username;
-      home.homeDirectory = "/home/${config.myconfig.username}";
-    };
-    useGlobalPkgs = true;
-    useUserPackages = true;
-  };
+  # home-manager = {
+  #   users.${config.myconfig.username} = {
+  #     imports = [ (import ../../home/default.nix) ];
+  #     targets.genericLinux.enable = true;
+  #     home.username = config.myconfig.username;
+  #     home.homeDirectory = "/home/${config.myconfig.username}";
+  #   };
+  #   useGlobalPkgs = true;
+  #   useUserPackages = true;
+  # };
 
   # WSL specific
   wsl = {

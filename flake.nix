@@ -23,28 +23,37 @@
       nixos-wsl,
       ...
     }:
-    {
-      nix.settings.experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-
-      nixosConfigurations = {
-        wsl = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+    let
+      mkHost =
+        {
+          modules,
+          hostPlatform ? "x86_64-linux",
+          stateVersion ? "25.11",
+        }:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit hostPlatform stateVersion; };
           modules = [
             home-manager.nixosModules.home-manager
+            ./modules/common.nix
+          ]
+          ++ modules;
+        };
+    in
+    {
+      nixosConfigurations = {
+
+        # WSL
+        wsl = mkHost {
+          modules = [
             nixos-wsl.nixosModules.default
             ./hosts/wsl/default.nix
           ];
         };
 
-        db-pvm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            home-manager.nixosModules.home-manager
-            ./hosts/db-pvm/default.nix
-          ];
+        # Proxmox vm running postgress
+        db-pvm = mkHost {
+          stateVersion = "26.05";
+          modules = [ ./hosts/db-pvm/default.nix ];
         };
       };
     };
