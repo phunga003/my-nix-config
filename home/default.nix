@@ -1,8 +1,13 @@
-{ pkgs, lib, config, ... }:
-{ 
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   home = {
-    stateVersion = "25.11";  
-    
+    stateVersion = "25.11";
+
     packages = with pkgs; [
       git
       jetbrains-mono
@@ -10,16 +15,17 @@
       erdtree
     ];
   };
-    
+
   programs = {
     git = {
       enable = true;
       settings = {
-        user.name = "Khai";
-        user.email = "phunga.prod@gmail.com";
+        # change if you want
+        user.name = "Goldship";
+        user.email = "noreply.umamusume@pretty-derby.jp";
       };
     };
-    
+
     bash = {
       enable = true;
       sessionVariables = {
@@ -30,7 +36,7 @@
     starship = {
       enable = true;
       settings = {
-        format = "$directory$git_branch$git_status$character";  
+        format = "$directory$git_branch$git_status$character";
         directory.style = "bold #89b4fa";
         username.disabled = true;
         hostname.disabled = true;
@@ -65,7 +71,4 @@
     };
   };
 
-  
 }
-
-

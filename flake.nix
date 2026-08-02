@@ -24,6 +24,11 @@
       ...
     }:
     {
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
       nixosConfigurations = {
         wsl = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
