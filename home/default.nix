@@ -27,8 +27,8 @@
       enable = true;
       settings = {
         # change if you want
-        user.name = "Goldship";
-        user.email = "noreply.umamusume@pretty-derby.jp";
+        user.name = "Mambo";
+        user.email = "noreply.Matikanetannhauser@pretty-derby.jp";
       };
     };
 
@@ -42,10 +42,10 @@
     starship = {
       enable = true;
       settings = {
-        format = "$directory$git_branch$git_status$character";
+        # format = "$directory$git_branch$git_status$character";
         directory.style = "bold #89b4fa";
-        username.disabled = true;
-        hostname.disabled = true;
+        username.show_always = true;
+        hostname.show_always = true;
       };
     };
 
