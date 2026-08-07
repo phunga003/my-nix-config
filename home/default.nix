@@ -49,7 +49,7 @@
         #      hostname.ssh_only = false;
 
         format = ''
-          \[[$username$hostname]($style)\] $directory\[$git_branch\]$git_status
+          \[[$username$hostname]($style)\] $directory$git_branch$git_status
           $character'';
 
         username = {
@@ -60,14 +60,14 @@
         };
         hostname = {
           ssh_only = true;
-          format = "$ssh_symbol[$hostname](bold green)";
+          format = " $ssh_symbol[$hostname](bold green)";
         };
         directory = {
           truncation_length = 3;
           style = "bold #89b4fa";
         };
         git_branch = {
-          format = "[$symbol$branch](bold purple)";
+          format = ''\[[$symbol$branch](bold purple)\]'';
           symbol = "git:";
         };
 
