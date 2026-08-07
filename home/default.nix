@@ -39,13 +39,38 @@
       };
     };
 
+    # TODO: Refactor
     starship = {
       enable = true;
       settings = {
-        # format = "$directory$git_branch$git_status$character";
-        directory.style = "bold #89b4fa";
-        username.show_always = true;
-        hostname.show_always = true;
+        #format = "[$username@$hostname]($style)$directory$git_branch$git_status\n$character";
+        # directory.style = "bold #89b4fa";
+        #       username.show_always = true;
+        #      hostname.ssh_only = false;
+
+        format = ''
+          \[[$username$hostname]($style)\] $directory\[$git_branch\]$git_status
+          $character'';
+
+        username = {
+          show_always = true;
+          format = "[$user]($style)";
+          style_root = "bold red";
+          style_user = "bold green";
+        };
+        hostname = {
+          ssh_only = true;
+          format = "$ssh_symbol[$hostname](bold green)";
+        };
+        directory = {
+          truncation_length = 3;
+          style = "bold #89b4fa";
+        };
+        git_branch = {
+          format = "[$symbol$branch](bold purple)";
+          symbol = "git:";
+        };
+
       };
     };
 
