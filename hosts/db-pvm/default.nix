@@ -8,15 +8,27 @@
     ../../profiles/dev/git.nix
     ../../profiles/dev/ssh.nix
     ../../profiles/dev/lang/nix.nix
+
+    ../../profiles/services/guacamole.nix
   ];
 
-  myconfig.username = "postgresDB";
+  myconfig = {
+    username = "postgresDB";
 
-  myconfig.services.postgres = {
-    enable = true;
-    # NOTE: configure by adding and removing entries based on your needs, or make a different host
-    databases = [ "guacamole" ];
-    appUsers = [ "guacamole" ]; # role name matches db → ensureDBOwnership works
+    services = {
+      guacamole = {
+        enable = true;
+        dbHost = "localhost";
+        dbPasswordFile = "/var/lib/guacamole-db-password";
+      };
+
+      postgres = {
+        enable = true;
+        # NOTE: configure by adding and removing entries based on your needs, or make a different host
+        databases = [ "guacamole" ];
+        appUsers = [ "guacamole" ];
+      };
+    };
   };
 
   profiles.dev.nixTools.tooling = true;
