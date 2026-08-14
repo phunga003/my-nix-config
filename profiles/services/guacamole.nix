@@ -38,23 +38,7 @@ let
 in
 {
   options.myconfig = {
-    
-rangeAccess = {
-  enable = lib.mkEnableOption "dual-home onto the range network";
-  rangeInterface = lib.mkOption {
-    type = lib.types.str;
-    description = "Interface name on the range network (e.g. ens19).";
-  };
-  rangeAddress = lib.mkOption {
-    type = lib.types.str;
-    default = "10.10.10.2";
-    description = "Static IP on the range network.";
-  };
-  rangePrefixLength = lib.mkOption {
-    type = lib.types.int;
-    default = 24;
-  };
-    
+
     services.guacamole = {
       enable = lib.mkEnableOption "Apache Guacamole (Postgres/JDBC)";
       dbHost = lib.mkOption {
@@ -80,8 +64,6 @@ rangeAccess = {
       };
     };
   };
-
-  
   config = lib.mkIf cfg.enable {
     services.guacamole-server = {
       enable = true;

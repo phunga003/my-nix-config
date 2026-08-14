@@ -10,6 +10,7 @@
     ../../profiles/dev/lang/nix.nix
 
     ../../profiles/services/guacamole.nix
+    ../../profiles/networking/extraInterfaces.nix
   ];
 
   myconfig = {
@@ -21,14 +22,21 @@
         dbHost = "localhost";
         dbPasswordFile = "/var/lib/guacamole-db-password";
       };
-
-      postgres = {
-        enable = true;
-        # NOTE: configure by adding and removing entries based on your needs, or make a different host
-        databases = [ "guacamole" ];
-        appUsers = [ "guacamole" ];
+    };
+    networking.extraInterfaces = {
+      ens19 = {
+        address = "10.10.10.100";
+        prefixLength = 24;
       };
     };
+
+    services.postgres = {
+      enable = true;
+      # NOTE: configure by adding and removing entries based on your needs, or make a different host
+      databases = [ "guacamole" ];
+      appUsers = [ "guacamole" ];
+    };
+
   };
 
   profiles.dev.nixTools.tooling = true;
