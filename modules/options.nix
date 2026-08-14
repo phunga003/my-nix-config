@@ -13,5 +13,4 @@
       description = "Enable if the underlying OS is not Nix";
     };
   };
-
 }
