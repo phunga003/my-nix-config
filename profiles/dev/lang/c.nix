@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   username = config.myconfig.username;
 in
@@ -10,17 +15,20 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf config.profiles.dev.c.runtime {
-      home-manager.users.${username}.home.packages = with pkgs; [ clang-tools ];
+      home-manager.users.${username}.home.packages = with pkgs; [
+        gcc
+      ];
     })
 
     (lib.mkIf config.profiles.dev.c.tooling {
       home-manager.users.${username}.programs.helix.languages = {
-        language = [{
-          name = "c";
-          language-servers = [ "clangd" ];
-        }];
+        language = [
+          {
+            name = "c";
+            language-servers = [ "clangd" ];
+          }
+        ];
       };
     })
   ];
 }
-

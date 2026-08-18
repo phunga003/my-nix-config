@@ -19,7 +19,6 @@ in
       home.packages =
         with pkgs;
         lib.optionals cfg.runtime [
-          clang
           pkgconf
         ]
         ++ lib.optionals cfg.tooling [ clang-tools ]
