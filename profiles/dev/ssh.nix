@@ -7,13 +7,12 @@ in
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "*" = {
-          addKeysToAgent = "yes";
+          AddKeysToAgent = "yes";
         };
       };
     };
-
     bash = {
       initExtra = lib.mkAfter ''
         if [ -z "''${SSH_AUTH_SOCK:-}" ]; then
@@ -23,4 +22,3 @@ in
     };
   };
 }
-
