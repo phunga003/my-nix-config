@@ -34,15 +34,6 @@
       sessionVariables = {
         COLORTERM = "truecolor";
       };
-      initExtra = ''
-        if [ -n "${IN_NIX_SHELL:-}" ] || [ -n "${NIX_ENVIRONMENT:-}" ]; then
-          export NIX_SHELL_INDICATOR="❄"
-        else
-          unset NIX_SHELL_INDICATOR
-        fi
-      '';
-    };
-
     zellij = {
       enable = true;
       settings = {
