@@ -4,7 +4,7 @@
       enable = true;
       settings = {
         format = ''
-          [$username$hostname]($style) $directory $nix_shell$git_branch$git_status
+          \[[$username$hostname]($style)\]$nix_shell $directory$git_branch$git_status
           $character'';
 
         username = {
@@ -25,9 +25,9 @@
         };
 
         nix_shell = {
-          format = "via [$symbol](bold blue) ";
-          symbol = "❄";
-          style = "bold blue";
+          format = "[$symbol](bold cyan)";
+          symbol = "❆";
+          style = "bold cyan";
           heuristic = true;
         };
 
